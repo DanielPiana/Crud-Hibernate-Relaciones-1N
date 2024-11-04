@@ -2,6 +2,7 @@ package org.example.crud_hibernate_relaciones_1_n.util;
 
 
 import org.example.crud_hibernate_relaciones_1_n.domain.Coche;
+import org.example.crud_hibernate_relaciones_1_n.domain.Multa;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -13,6 +14,7 @@ public class HibernateUtil {
             Configuration cfg = new Configuration();
             cfg.configure("org/example/crud_hibernate_relaciones_1_n/Hibernate/hibernate.cfg.xml");
             cfg.addAnnotatedClass(Coche.class);
+            cfg.addAnnotatedClass(Multa.class);
             factory = cfg.buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);

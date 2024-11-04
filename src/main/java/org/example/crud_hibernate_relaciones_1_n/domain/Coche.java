@@ -1,11 +1,12 @@
 package org.example.crud_hibernate_relaciones_1_n.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "Coches")
-public class Coche {
+public class Coche implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -22,18 +23,8 @@ public class Coche {
     @Column(name="tipo")
     private String tipo;
 
-    @ManyToOne
-    @JoinColumn(name = "id_multa", referencedColumnName = "id_multa")
+    @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
     private List<Multa> listaMultas;
-
-    public Coche(List<Multa> listaMultas, String tipo, String modelo, String marca, String matricula, int id) {
-        this.listaMultas = listaMultas;
-        this.tipo = tipo;
-        this.modelo = modelo;
-        this.marca = marca;
-        this.matricula = matricula;
-        this.id = id;
-    }
 
     public Coche(String matricula, String marca, String modelo, String tipo) {
         this.matricula = matricula;

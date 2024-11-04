@@ -182,4 +182,8 @@ public class MainController implements Initializable {
         buttonGuardar.setDisable(false);
         buttonEliminar.setDisable(false);
     }
+
+    public void onButtonMultasClick() {
+        // MOSTAR MULTAS.FXML
+    }
 }

@@ -20,8 +20,11 @@ public class Multa {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    @OneToMany (mappedBy = "Coche", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "id")
     private Coche coche;
+
+
 
     public Multa(int id_multa, String matricula, double precio, LocalDate fecha, Coche coche) {
         this.id_multa = id_multa;
@@ -29,6 +32,13 @@ public class Multa {
         this.precio = precio;
         this.fecha = fecha;
         this.coche = coche;
+    }
+
+    public Multa(LocalDate fecha, double precio, String matricula, int id_multa) {
+        this.fecha = fecha;
+        this.precio = precio;
+        this.matricula = matricula;
+        this.id_multa = id_multa;
     }
 
     public int getId_multa() {

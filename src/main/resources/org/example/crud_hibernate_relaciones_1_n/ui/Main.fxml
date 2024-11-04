@@ -9,16 +9,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Button?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="406.0" style="-fx-background-color: #7BC0F5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.crud_hibernate_relaciones_1_n.Controllers.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="490.0" style="-fx-background-color: #7BC0F5;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.crud_hibernate_relaciones_1_n.Controllers.MainController">
   <children>
-    <TableView fx:id="tableCoches" layoutX="23.0" layoutY="322.0" onMouseClicked="#onTableClick" prefHeight="240.0" prefWidth="360.0" style="-fx-background-color: #A3D8F4;">
+    <TableView fx:id="tableCoches" layoutX="28.0" layoutY="321.0" onMouseClicked="#onTableClick" prefHeight="240.0" prefWidth="436.0" style="-fx-background-color: #A3D8F4;">
       <columns>
-        <TableColumn fx:id="columnaMatricula" text="Matrícula" />
-        <TableColumn fx:id="columnaMarca" text="Marca" />
-        <TableColumn fx:id="columnaModelo" prefWidth="120.0" text="Modelo" />
-        <TableColumn fx:id="columnaTipo" text="Tipo" />
-        <TableColumn fx:id="columnaId" prefWidth="75.0" text="Id" visible="false" />
+        <TableColumn fx:id="columnaMatricula" prefWidth="92.0" text="Matrícula" />
+        <TableColumn fx:id="columnaMarca" prefWidth="95.0" text="Marca" />
+        <TableColumn fx:id="columnaModelo" prefWidth="124.0" text="Modelo" />
+        <TableColumn fx:id="columnaTipo" prefWidth="124.0" text="Tipo" />
+        <TableColumn fx:id="columnaId" minWidth="0.0" prefWidth="0.0" text="Id" />
       </columns></TableView>
     <Button fx:id="buttonEliminar" layoutX="206.0" layoutY="263.0" mnemonicParsing="false" onAction="#onButtonEliminarClick" prefHeight="30.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;" text="Eliminar">
       <font>
@@ -40,42 +39,47 @@
         <Font name="System Bold Italic" size="12.0" />
       </font>
     </Button>
-    <Label layoutX="69.0" layoutY="41.0" text="Matrícula">
+    <Label layoutX="113.0" layoutY="41.0" text="Matrícula">
       <font>
         <Font name="System Bold Italic" size="12.0" />
       </font>
     </Label>
-    <TextField fx:id="txtFieldMatricula" alignment="TOP_LEFT" layoutX="173.0" layoutY="37.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4; -fx-border-width: 2;">
+    <TextField fx:id="txtFieldMatricula" alignment="TOP_LEFT" layoutX="217.0" layoutY="37.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4; -fx-border-width: 2;">
       <font>
         <Font name="System Bold Italic" size="12.0" />
       </font>
     </TextField>
-    <ComboBox fx:id="cbTipo" layoutX="173.0" layoutY="187.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;" />
+    <ComboBox fx:id="cbTipo" layoutX="217.0" layoutY="187.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;" />
 
-    <TextField fx:id="txtFieldMarca" alignment="TOP_LEFT" layoutX="173.0" layoutY="87.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;">
+    <TextField fx:id="txtFieldMarca" alignment="TOP_LEFT" layoutX="217.0" layoutY="87.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;">
       <font>
         <Font name="System Bold Italic" size="12.0" />
       </font>
     </TextField>
-    <TextField fx:id="txtFieldModelo" alignment="TOP_LEFT" layoutX="173.0" layoutY="137.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;">
+    <TextField fx:id="txtFieldModelo" alignment="TOP_LEFT" layoutX="217.0" layoutY="137.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;">
       <font>
         <Font name="System Bold Italic" size="12.0" />
       </font>
     </TextField>
-    <Label layoutX="69.0" layoutY="91.0" text="Marca">
+    <Label layoutX="113.0" layoutY="91.0" text="Marca">
       <font>
         <Font name="System Bold Italic" size="12.0" />
       </font>
     </Label>
-    <Label layoutX="69.0" layoutY="141.0" text="Modelo">
+    <Label layoutX="113.0" layoutY="141.0" text="Modelo">
       <font>
         <Font name="System Bold Italic" size="12.0" />
       </font>
     </Label>
-    <Label layoutX="69.0" layoutY="191.0" text="Tipo">
+    <Label layoutX="113.0" layoutY="191.0" text="Tipo">
       <font>
         <Font name="System Bold Italic" size="12.0" />
       </font>
     </Label>
+      <Button fx:id="buttonMultas" layoutX="383.0" layoutY="263.0" mnemonicParsing="false" onAction="#onButtonMultasClick" prefHeight="30.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4; -fx-border-width: 2;" text="Multas">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
   </children>
 </Pane>
