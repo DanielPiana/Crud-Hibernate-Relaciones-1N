@@ -1,15 +1,29 @@
 package org.example.crud_hibernate_relaciones_1_n.Controllers;
 
-import javafx.event.ActionEvent;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.crud_hibernate_relaciones_1_n.DAO.CocheDao;
+import org.example.crud_hibernate_relaciones_1_n.DAO.CocheDaoImpl;
+import org.example.crud_hibernate_relaciones_1_n.domain.Coche;
+import org.example.crud_hibernate_relaciones_1_n.util.Alerts;
+import org.example.crud_hibernate_relaciones_1_n.util.Comprobaciones;
+import org.example.crud_hibernate_relaciones_1_n.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-public class MainController {
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainController implements Initializable {
+
 
     @FXML
     private Button buttonEliminar;
@@ -24,25 +38,25 @@ public class MainController {
     private Button buttonModificar;
 
     @FXML
-    private ComboBox<?> cbTipo;
+    private ComboBox<String> cbTipo;
 
     @FXML
-    private TableColumn<?, ?> columnaId;
+    private TableColumn<Coche, String> columnaMarca;
 
     @FXML
-    private TableColumn<?, ?> columnaMarca;
+    private TableColumn<Coche, String> columnaMatricula;
 
     @FXML
-    private TableColumn<?, ?> columnaMatricula;
+    private TableColumn<Coche, String> columnaModelo;
 
     @FXML
-    private TableColumn<?, ?> columnaModelo;
+    private TableColumn<Coche, String> columnaTipo;
 
     @FXML
-    private TableColumn<?, ?> columnaTipo;
+    private TableColumn<Coche,Integer> columnaId;
 
     @FXML
-    private TableView<?> tableCoches;
+    private TableView<Coche> tableCoches;
 
     @FXML
     private TextField txtFieldMarca;
@@ -53,29 +67,119 @@ public class MainController {
     @FXML
     private TextField txtFieldModelo;
 
-    @FXML
-    void onButtonEliminarClick(ActionEvent event) {
+    String[] listaTipos = {"Familiar","Monovolumen","Deportivo","SUV"};
 
+    SessionFactory factory = HibernateUtil.getSessionFactory();
+    Session session = HibernateUtil.getSession();
+    CocheDao dao = new CocheDaoImpl();
+
+    @FXML
+    void onButtonEliminarClick() {
+        if (tableCoches.getSelectionModel().getSelectedItem() != null) {
+            Coche coche = tableCoches.getSelectionModel().getSelectedItem();
+            dao.eliminarCoche(coche.getId(),session);
+            cargarTabla();
+            setearTextFieldsVacios();
+            Alerts.alertaGeneral("Coche eliminado correctamente","INFORMATION");
+        } else {
+            Alerts.alertaGeneral("Debe seleccionar un coche para eliminar","INFORMATION");
+        }
     }
 
     @FXML
-    void onButtonGuardarClick(ActionEvent event) {
-
+    void onButtonGuardarClick() {
+        if (Comprobaciones.textosVacios(cbTipo,txtFieldMatricula,txtFieldMarca,txtFieldModelo)) {
+            Coche coche = new Coche(txtFieldMatricula.getText(),txtFieldMarca.getText(),txtFieldModelo.getText(),cbTipo.getSelectionModel().getSelectedItem());
+            if (!dao.existe(txtFieldMatricula.getText(),session)) {
+                dao.insertarCoche(coche,session);
+                cargarTabla();
+                setearTextFieldsVacios();
+                Alerts.alertaGeneral("Coche guardado correctamente","INFORMATION");
+            } else {
+                Alerts.alertaGeneral("Esa matrícula ya existe","INFORMATION");
+            }
+        } else {
+            Alerts.alertaGeneral("Debe rellenar todos los campos","WARNING");
+        }
     }
 
     @FXML
-    void onButtonLimpiarClick(ActionEvent event) {
+    void onButtonLimpiarClick() {
+        setearTextFieldsVacios();
+        activarBotonesYTxtField();
+    }
 
+
+    @FXML
+    void onButtonModificarClick() {
+        Coche cocheReferencia = tableCoches.getSelectionModel().getSelectedItem();
+        if (cocheReferencia != null) {
+            if (tableCoches.isEditable()) {
+                tableCoches.setEditable(false);
+                tableCoches.setDisable(true);
+                buttonEliminar.setDisable(true);
+                buttonGuardar.setDisable(true);
+                txtFieldMatricula.setDisable(true);
+                Alerts.alertaGeneral("Escribe en los campos habilitados, lo que deseas modificar del coche seleccionado","INFORMATION");
+            } else {
+                if (Comprobaciones.textosVacios(cbTipo,txtFieldMarca,txtFieldModelo) && tableCoches.getSelectionModel().getSelectedItem()!=null) {
+                    Coche cocheMod = new Coche(txtFieldMarca.getText(),txtFieldModelo.getText(),cbTipo.getValue());
+                    dao.modificarCoche(cocheReferencia.getId(),cocheMod,session);
+                    setearTextFieldsVacios();
+                    activarBotonesYTxtField();
+                    cargarTabla();
+                    Alerts.alertaGeneral("Coche modificado correctamente", "INFORMATION");
+                } else {
+                    Alerts.alertaGeneral("Debe rellenar los campos a modificar y seleccionar un coche en la tabla\nRecuerda que la matrícula no se puede cambiar","INFORMATION");
+                }
+            }
+        } else {
+            Alerts.alertaGeneral("Debe seleccionar un coche para modificar","INFORMATION");
+        }
     }
 
     @FXML
-    void onButtonModificarClick(ActionEvent event) {
-
+    void onTableClick() {
+        //Metodo para setear en los textFields y el comboBox lo seleccionado en la tabla
+        Coche coche = tableCoches.getSelectionModel().getSelectedItem();
+        if (coche == null) {
+            Alerts.alertaGeneral("No ha seleccionado nada","INFORMATION");
+        } else {
+            txtFieldMarca.setText(coche.getMarca());
+            txtFieldMatricula.setText(coche.getMatricula());
+            txtFieldModelo.setText(coche.getModelo());
+            cbTipo.setValue(coche.getTipo());
+        }
     }
 
-    @FXML
-    void onTableClick(MouseEvent event) {
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Inicializamos los tipos en el comboBox
+        cbTipo.getItems().addAll(listaTipos);
+        columnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnaMatricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
+        columnaMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        columnaModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        columnaTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        cargarTabla();
+        tableCoches.setEditable(true);// Hay que declarar explicitamente que la tabla es editable para que el metodo de modificar pueda devolver true si es editable
     }
-
+    public void cargarTabla() {
+        ObservableList<Coche> observableList = dao.listar(session);
+        tableCoches.setItems(observableList);
+    }
+    public void setearTextFieldsVacios() {
+        //Metodo para limpiar los textFields y el comboBox
+        txtFieldModelo.setText("");
+        txtFieldMatricula.setText("");
+        txtFieldMarca.setText("");
+        cbTipo.setValue("");
+    }
+    public void activarBotonesYTxtField() {
+        tableCoches.setEditable(true);
+        tableCoches.setDisable(false);
+        txtFieldMatricula.setDisable(false);
+        buttonGuardar.setDisable(false);
+        buttonEliminar.setDisable(false);
+    }
 }
