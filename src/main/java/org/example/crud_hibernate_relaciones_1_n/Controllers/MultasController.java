@@ -9,11 +9,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.example.crud_hibernate_relaciones_1_n.domain.Multa;
+import org.example.crud_hibernate_relaciones_1_n.util.Scenes;
 
 import java.util.Date;
 
 public class MultasController {
 
+    public Button buttonCoches;
     @FXML
     private Button buttonEliminar;
 
@@ -76,6 +78,6 @@ public class MultasController {
     }
 
     public void onButtonCochesClick() {
-        //CARGAR MAIN.FXML
+        Scenes.mostrarEscena(buttonCoches,"ui/Main.fxml");
     }
 }

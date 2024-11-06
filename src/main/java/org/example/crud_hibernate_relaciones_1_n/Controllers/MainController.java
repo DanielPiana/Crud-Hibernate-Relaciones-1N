@@ -15,16 +15,19 @@ import org.example.crud_hibernate_relaciones_1_n.domain.Coche;
 import org.example.crud_hibernate_relaciones_1_n.util.Alerts;
 import org.example.crud_hibernate_relaciones_1_n.util.Comprobaciones;
 import org.example.crud_hibernate_relaciones_1_n.util.HibernateUtil;
+import org.example.crud_hibernate_relaciones_1_n.util.Scenes;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-
+    @FXML
+    private Button buttonMultas;
     @FXML
     private Button buttonEliminar;
 
@@ -184,6 +187,6 @@ public class MainController implements Initializable {
     }
 
     public void onButtonMultasClick() {
-        // MOSTAR MULTAS.FXML
+        Scenes.mostrarEscena(buttonMultas,"ui/multas.fxml");
     }
 }
