@@ -23,6 +23,7 @@ public class Coche implements Serializable {
     @Column(name="tipo")
     private String tipo;
 
+    //coche se refiere a la clase Coche, pero da error si pones la C mayúscula
     @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
     private List<Multa> listaMultas;
 

@@ -1,6 +1,7 @@
 package org.example.crud_hibernate_relaciones_1_n.Controllers;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 
-import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -186,7 +187,12 @@ public class MainController implements Initializable {
         buttonEliminar.setDisable(false);
     }
 
-    public void onButtonMultasClick() {
-        Scenes.mostrarEscena(buttonMultas,"ui/multas.fxml");
+    public void onButtonMultasClick(ActionEvent event) throws IOException {
+        Coche coche = tableCoches.getSelectionModel().getSelectedItem();
+        if (coche != null) {
+            Scenes.mostrarEscenaConParametros(event,coche,"ui/multas.fxml");
+        } else {
+            Alerts.alertaGeneral("Debe seleccionar un coche para visualizar sus multas","INFORMATION");
+        }
     }
 }

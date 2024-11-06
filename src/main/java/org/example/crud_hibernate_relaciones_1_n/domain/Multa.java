@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class Multa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_multa")
     private int id_multa;
 
     @Column(name="matricula")
@@ -21,7 +22,9 @@ public class Multa {
     private LocalDate fecha;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    //id_coche se refiere a la clave foránea de la tabla multas en la base de datos
+    //id se refiere al atributo id de la clase Coche en java
+    @JoinColumn(name = "id_coche",referencedColumnName = "id")
     private Coche coche;
 
 
@@ -39,6 +42,9 @@ public class Multa {
         this.precio = precio;
         this.matricula = matricula;
         this.id_multa = id_multa;
+    }
+
+    public Multa() {
     }
 
     public int getId_multa() {

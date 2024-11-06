@@ -7,7 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.example.crud_hibernate_relaciones_1_n.Controllers.MultasController;
 import org.example.crud_hibernate_relaciones_1_n.MainApp;
+import org.example.crud_hibernate_relaciones_1_n.domain.Coche;
 
 import java.io.IOException;
 
@@ -30,21 +32,22 @@ public class Scenes {
             System.out.println(e.getMessage());
         }
     }
-    /*
+
     //Aparte del evento y el fxml necesario para cargar el fxml, le paso los datos que quiero del otro controlador
-    public static void mostrarEscenaConParametros(ActionEvent event,String nombre,double precio,String fxml) throws IOException {
+    public static void mostrarEscenaConParametros(ActionEvent event, Coche coche, String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource(fxml));
         Parent root = fxmlLoader.load();
         //Creamos instancia del controlador al que queremos pasar datos
-        ActualizarController actualizarController = fxmlLoader.getController();
+        MultasController multasController = fxmlLoader.getController();
         //Y ya tenemos acceso a los metodos del controller
-        actualizarController.displayProducto(nombre, precio);
+        multasController.displayCoche(coche);
         //Y por ultimo cargamos nuestro nuevo fxml con los datos establecidos correctamente
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+    /*
     public static void mostrarEscenaConParametrosX(ActionEvent event,String nombre,String contraseña,String correo,String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource(fxml));
         Parent root = fxmlLoader.load();
