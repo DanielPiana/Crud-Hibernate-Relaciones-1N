@@ -15,6 +15,7 @@ import org.example.crud_hibernate_relaciones_1_n.DAO.MultaDao;
 import org.example.crud_hibernate_relaciones_1_n.DAO.MultaDaoImpl;
 import org.example.crud_hibernate_relaciones_1_n.domain.Coche;
 import org.example.crud_hibernate_relaciones_1_n.domain.Multa;
+import org.example.crud_hibernate_relaciones_1_n.util.Alerts;
 import org.example.crud_hibernate_relaciones_1_n.util.HibernateUtil;
 import org.example.crud_hibernate_relaciones_1_n.util.Scenes;
 import org.hibernate.Session;
@@ -25,8 +26,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MultasController implements Initializable{
-
-    public Button buttonCoches;
+    @FXML
+    private Button buttonCoches;
     @FXML
     private Button buttonEliminar;
 
@@ -52,7 +53,7 @@ public class MultasController implements Initializable{
     private DatePicker datePicker;
 
     @FXML
-    private TableView<Multa> tableCoches;
+    private TableView<Multa> tableMultas;
 
     @FXML
     private TextField txtFieldMatricula;
@@ -79,7 +80,7 @@ public class MultasController implements Initializable{
 
     @FXML
     void onButtonLimpiarClick(ActionEvent event) {
-
+        limpiarTextFields();
     }
 
     @FXML
@@ -89,7 +90,12 @@ public class MultasController implements Initializable{
 
     @FXML
     void onTableClick(MouseEvent event) {
-
+        Multa multa = tableMultas.getSelectionModel().getSelectedItem();
+        if (multa != null) {
+            txtPrecio.setText(String.valueOf(multa.getPrecio()));
+            txtIdMulta.setText(String.valueOf(multa.getId_multa()));
+            datePicker.setValue(multa.getFecha());
+        }
     }
 
     public void onButtonCochesClick() {
@@ -98,7 +104,7 @@ public class MultasController implements Initializable{
 
     void cargarTabla(Coche coche) {
         ObservableList<Multa> listaMultas = multaDao.listarMultasCoche(coche,session);
-        tableCoches.setItems(listaMultas);
+        tableMultas.setItems(listaMultas);
     }
     void limpiarTextFields() {
         txtFieldMatricula.setText("");

@@ -146,9 +146,7 @@ public class MainController implements Initializable {
     void onTableClick() {
         //Metodo para setear en los textFields y el comboBox lo seleccionado en la tabla
         Coche coche = tableCoches.getSelectionModel().getSelectedItem();
-        if (coche == null) {
-            Alerts.alertaGeneral("No ha seleccionado nada","INFORMATION");
-        } else {
+        if (coche != null) {
             txtFieldMarca.setText(coche.getMarca());
             txtFieldMatricula.setText(coche.getMatricula());
             txtFieldModelo.setText(coche.getModelo());

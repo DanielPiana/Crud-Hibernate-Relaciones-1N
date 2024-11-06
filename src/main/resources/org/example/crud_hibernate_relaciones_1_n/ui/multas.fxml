@@ -11,7 +11,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="490.0" style="-fx-background-color: #7BC0F5;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.crud_hibernate_relaciones_1_n.Controllers.MultasController">
     <children>
-        <TableView fx:id="tableCoches" layoutX="28.0" layoutY="321.0" onMouseClicked="#onTableClick" prefHeight="240.0" prefWidth="436.0" style="-fx-background-color: #A3D8F4;">
+        <TableView fx:id="tableMultas" layoutX="28.0" layoutY="321.0" onMouseClicked="#onTableClick" prefHeight="240.0" prefWidth="436.0" style="-fx-background-color: #A3D8F4;">
             <columns>
                 <TableColumn fx:id="columnaIdMulta" prefWidth="97.0" text="Id Multa" />
                 <TableColumn fx:id="columnaPrecio" prefWidth="170.0" text="Precio" />
