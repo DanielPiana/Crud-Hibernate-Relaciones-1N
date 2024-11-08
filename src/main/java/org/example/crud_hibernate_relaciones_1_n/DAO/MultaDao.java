@@ -7,13 +7,13 @@ import org.hibernate.Session;
 
 public interface MultaDao {
 
-    void insertarMulta();
+    void insertarMulta(Multa multa, Session session);
 
-    void eliminarMulta();
+    void eliminarMulta(Multa multa, Session session);
 
     void modificarMulta();
 
-    ObservableList<Multa> listarMultasCoche(Coche coche, Session session);
+    ObservableList<Multa> listarMultasCoche(String matricula, Session session);
 
     boolean existe();
 }

@@ -109,4 +109,30 @@ public class CocheDaoImpl implements CocheDao{
         }
         return comprobacion; //Devolvemos true si existe y false si no existe.
     }
+
+    @Override
+    public Coche buscarCocheConMatricula(String matricula, Session session) {
+        Transaction transaction = null; //Inicializamos la transacción a null, servirá para hacer rollback a los cambios si se ha producido un error
+        Coche coche = new Coche(); //Inicializamos el booleando a devolver en false
+        try {
+            transaction = session.beginTransaction(); //Empezamos la transacción y la guardamos en la variable transaction
+            //No podemos usar "Coche cocheExistente = session.get(Coche.class,id);" Puesto que solo sirve para claves primarias, y si queremos buscar algo por matrícula,
+            //tendremos que usar una consulta hql, la cual equivale a una consulta mas personalizada ":matricula" equivale al parametro matricula.
+            String hql = "FROM Coche WHERE matricula = :matricula"; //Guardamos el String de la consulta en una variable
+            Query<Coche> query = session.createQuery(hql, Coche.class); // Creamos la consulta e indicamos que nos devuelve un objeto Coche
+            query.setParameter("matricula", matricula); //Seteamos el parametro de la consulta al parametro enviado al metodo
+
+            coche = query.getSingleResult();
+
+            transaction.commit(); //Confirmamos la transacción
+            session.clear(); //Limpia la sesión
+        } catch (Exception e) {
+            if (transaction != null) { //Comprobamos si la transacción se ha iniciado
+                transaction.rollback(); //Si se ha iniciado y ha generado un error, hacemos rollback. O hacemos todos los cambios o ninguno
+                System.out.println(e.getMessage()); //Imprimimos el mensaje de error para identificarlo mas fácilmente
+            }
+
+        }
+        return coche;
+    }
 }

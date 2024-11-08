@@ -15,4 +15,12 @@ public class Comprobaciones {
         }
         return true;
     }
+    public static boolean stringosNoVacios(String... strings) {
+        for (String stringActual : strings) {
+            if (stringActual == null || stringActual.trim().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

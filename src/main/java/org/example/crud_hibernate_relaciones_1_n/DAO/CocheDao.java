@@ -14,4 +14,6 @@ public interface CocheDao {
     ObservableList<Coche> listar(Session session);
 
     boolean existe(String matricula,Session session);
+
+    Coche buscarCocheConMatricula(String matricula, Session session);
 }
