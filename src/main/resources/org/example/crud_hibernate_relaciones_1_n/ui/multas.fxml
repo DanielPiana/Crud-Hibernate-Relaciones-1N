@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="490.0" style="-fx-background-color: #7BC0F5;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.crud_hibernate_relaciones_1_n.Controllers.MultasController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="490.0" style="-fx-background-color: #7BC0F5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.crud_hibernate_relaciones_1_n.Controllers.MultasController">
     <children>
         <TableView fx:id="tableMultas" layoutX="28.0" layoutY="321.0" onMouseClicked="#onTableClick" prefHeight="240.0" prefWidth="436.0" style="-fx-background-color: #A3D8F4;">
             <columns>
@@ -48,7 +48,7 @@
             </font>
         </TextField>
 
-        <TextField fx:id="txtIdMulta" alignment="TOP_LEFT" layoutX="218.0" layoutY="87.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;">
+        <TextField fx:id="txtIdMulta" alignment="TOP_LEFT" editable="false" layoutX="218.0" layoutY="87.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #A3D8F4;">
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font>

@@ -47,8 +47,24 @@ public class MultaDaoImpl implements MultaDao {
     }
 
     @Override
-    public void modificarMulta() {
+    public void modificarMulta(Multa multa, Session session) {
+        Transaction transaction = null; //Inicializamos la transacción a null, servirá para hacer rollback a los cambios si se ha producido un error
+        try {
+            transaction = session.beginTransaction();
+            System.out.println(multa.getId_multa());
+            Multa multaExistente = session.get(Multa.class, multa.getId_multa());
+            multaExistente.setPrecio(multa.getPrecio());
+            multaExistente.setFecha(multa.getFecha());
 
+            session.update(multaExistente);
+            transaction.commit();
+            session.clear();
+        }catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -59,7 +75,6 @@ public class MultaDaoImpl implements MultaDao {
             transaction = session.beginTransaction(); //Empezamos la transacción y la guardamos en la variable transaction
             //COMO QUEREMOS LAS MULTAS CONCRETAS DE UN COCHE TENDREMOS QUE USAR UNA CONSULTA HQL PERSONALIZADA
             listaMultas = session.createQuery("from Multa where matricula = '" + matricula+"'").list();
-
             transaction.commit(); //Confirmamos la transacción
             session.clear(); //Limpia la sesión
         }catch (Exception e) {

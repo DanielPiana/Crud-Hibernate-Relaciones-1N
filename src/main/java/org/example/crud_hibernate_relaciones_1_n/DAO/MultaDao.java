@@ -11,7 +11,7 @@ public interface MultaDao {
 
     void eliminarMulta(Multa multa, Session session);
 
-    void modificarMulta();
+    void modificarMulta(Multa multa, Session session);
 
     ObservableList<Multa> listarMultasCoche(String matricula, Session session);
 

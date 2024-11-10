@@ -86,12 +86,11 @@ public class MultasController implements Initializable{
         String datePickerString = datePicker.toString();
         if (Comprobaciones.stringosNoVacios(datePickerString,txtIdMulta.toString(),txtPrecio.toString())) {
             Coche coche = dao.buscarCocheConMatricula(txtFieldMatricula.getText(),session);
-            //ponerselo como atributo a la multa y ya puedo guardar la multa
-            //int id_multa, String matricula, double precio, LocalDate fecha, Coche coche
             Multa multa = new Multa(0,txtFieldMatricula.getText(),Double.parseDouble(txtPrecio.getText()),datePicker.getValue(),coche);
             multaDao.insertarMulta(multa,session);
             cargarTabla(multa.getMatricula(),session);
             limpiarTextFields();
+            Alerts.alertaGeneral("Multa insertada correctamente","INFORMATION");
         } else {
             Alerts.alertaGeneral("Debe rellenar todos los campos", "INFORMATION");
         }
@@ -99,7 +98,28 @@ public class MultasController implements Initializable{
 
     @FXML
     void onButtonModificarClick(ActionEvent event) {
-
+        Multa multaReferencia = tableMultas.getSelectionModel().getSelectedItem();
+        if (multaReferencia != null) {
+            if (tableMultas.isEditable()) {
+                tableMultas.setEditable(false);
+                tableMultas.setDisable(true);
+                buttonEliminar.setDisable(true);
+                buttonGuardar.setDisable(true);
+                buttonLimpiar.setDisable(true);
+                Alerts.alertaGeneral("Escribe en los campos habilitados, lo que deseas modificar de la multa seleccionada","INFORMATION");
+            } else {
+                String fecha = datePicker.getValue().toString();
+                if (Comprobaciones.stringosNoVacios(txtPrecio.getText(),fecha)) {
+                    Multa multaMod = new Multa (datePicker.getValue(),Double.parseDouble(txtPrecio.getText()),txtFieldMatricula.getText(), multaReferencia.getId_multa());
+                    multaDao.modificarMulta(multaMod,session);
+                    habilitar();
+                    Alerts.alertaGeneral("Multa modificada correctamente","INFORMATION");
+                    cargarTabla(multaMod.getMatricula(),session);
+                } else {
+                    Alerts.alertaGeneral("Debe rellenar todos los campos", "INFORMATION");
+                }
+            }
+        }
     }
 
     @FXML
@@ -129,7 +149,6 @@ public class MultasController implements Initializable{
         tableMultas.setItems(listaMultas);
     }
     void limpiarTextFields() {
-        txtFieldMatricula.setText("");
         txtIdMulta.setText("");
         txtPrecio.setText("");
         datePicker.setValue(null);
@@ -148,6 +167,15 @@ public class MultasController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Hay que declarar explicitamente que la tabla es editable para que el metodo de modificar pueda devolver true si es editable
+        tableMultas.setEditable(true);
     }
+    public void habilitar() {
+        tableMultas.setEditable(true);
+        tableMultas.setDisable(false);
+        buttonEliminar.setDisable(false);
+        buttonGuardar.setDisable(false);
+        buttonLimpiar.setDisable(false);
+    }
+
 }
