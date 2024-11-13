@@ -10,7 +10,8 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CocheDaoImpl implements CocheDao{
+public class CocheDaoImpl implements CocheDao {
+
     @Override
     public void insertarCoche(Coche coche, Session session) {
         Transaction transaction = null; //Inicializamos la transacción a null, servirá para hacer rollback a los cambios si se ha producido un error
@@ -26,7 +27,7 @@ public class CocheDaoImpl implements CocheDao{
             }
         }
     }
-
+    @Override
     public void eliminarCoche(int id, Session session) {//Dado que conseguimos el coche de una tabla,
         // podriamos pasar coche directamente, lo pongo asi para practicar otra forma
         Transaction transaction = null; //Inicializamos la transacción a null, servirá para hacer rollback a los cambios si se ha producido un error

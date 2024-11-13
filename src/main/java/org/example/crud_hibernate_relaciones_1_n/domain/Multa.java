@@ -23,7 +23,7 @@ public class Multa {
 
     @ManyToOne
     //id_coche se refiere a la clave foránea de la tabla multas en la base de datos
-    //id se refiere al atributo id de la clase Coche en java
+    //id se refiere al atributo id de la columna coche
     @JoinColumn(name = "id_coche",referencedColumnName = "id")
     private Coche coche;
 

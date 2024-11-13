@@ -3,7 +3,6 @@ package org.example.crud_hibernate_relaciones_1_n.DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.example.crud_hibernate_relaciones_1_n.domain.Coche;
 import org.example.crud_hibernate_relaciones_1_n.domain.Multa;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -84,24 +83,5 @@ public class MultaDaoImpl implements MultaDao {
             }
         }
         return FXCollections.observableList(listaMultas); //Devolvemos la lista en formato ObservableList para cargarlo en la tabla
-    }
-
-    @Override
-    public boolean existe() {
-        return false;
-    }
-
-    public String buscarMatricula(Multa multa, Session session) {
-        Transaction transaction = null;
-        String matricula = "";
-        try {
-            transaction = session.beginTransaction();
-        }catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-                System.out.println(e.getMessage());
-            }
-        }
-        return "";
     }
 }

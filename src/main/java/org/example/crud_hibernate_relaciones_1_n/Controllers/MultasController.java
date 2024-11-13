@@ -83,8 +83,7 @@ public class MultasController implements Initializable{
 
     @FXML
     void onButtonGuardarClick(ActionEvent event) {
-        String datePickerString = datePicker.toString();
-        if (Comprobaciones.stringosNoVacios(datePickerString,txtIdMulta.toString(),txtPrecio.toString())) {
+        if (Comprobaciones.stringosNoVacios(txtIdMulta.getText(),txtPrecio.toString()) || datePicker.getValue() != null) {
             Coche coche = dao.buscarCocheConMatricula(txtFieldMatricula.getText(),session);
             Multa multa = new Multa(0,txtFieldMatricula.getText(),Double.parseDouble(txtPrecio.getText()),datePicker.getValue(),coche);
             multaDao.insertarMulta(multa,session);
